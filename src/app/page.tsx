@@ -1,102 +1,463 @@
-import Image from "next/image";
+// import connectDB from "../../lib/mongoose";
+// import Post from "@/models/Post";
+// import "@/models/User";
+// import PostCard from "@/components/PostCard";
+// import PostForm from "@/components/PostForm";
 
-export default function Home() {
+// export default async function Home() {
+//   await connectDB();
+//   const posts = await Post.find()
+//     .populate("author", "name")
+//     .sort({ createdAt: -1 });
+
+//   // For now, use dummy token from login page
+//   const token = ""; // We'll fix this with cookies or localStorage
+
+//    return (
+//     <main className="max-w-2xl mx-auto p-4">
+//       <h1 className="text-2xl font-bold mb-4">Home Feed</h1>
+//       <PostForm  />
+//       {posts.map((post) => (
+//         <PostCard key={post._id} post={post} />
+//       ))}
+//     </main>
+//   );
+// }
+
+// import connectDB from "../../lib/mongoose";
+// import Post from "@/models/Post";
+// import "@/models/User";
+// import PostCard from "@/components/PostCard";
+// import PostForm from "@/components/PostForm";
+
+// import { cookies } from "next/headers";
+// import jwt from "jsonwebtoken";
+
+// interface Author {
+//   _id: string;
+//   name: string;
+// }
+
+// interface PostWithAuthor {
+//   _id: string;
+//   content: string;
+//   author: Author;
+//   createdAt: string;
+//   updatedAt: string;
+// }
+
+// export default async function Home() {
+//   await connectDB();
+
+//   const posts: PostWithAuthor[] = await Post.find()
+//     .populate("author", "name")
+//     .sort({ createdAt: -1 });
+
+//   const cookieStore = cookies();
+//   const token = cookieStore.get("token")?.value;
+
+//   let userId: string | null = null;
+//   if (token) {
+//     try {
+//       const decoded = jwt.verify(token, process.env.JWT_SECRET!);
+//       userId = (decoded as { userId: string }).userId;
+//     } catch (err) {
+//       console.log("Invalid token");
+//     }
+//   }
+
+//   return (
+//     <main className="max-w-2xl mx-auto p-4">
+//       <div className="flex justify-between items-center mb-4">
+//         <h1 className="text-2xl font-bold">🔗 Mini LinkedIn</h1>
+
+//         {userId ? (
+//           <div className="flex gap-4">
+//             <a href={`/profile/${userId}`} className="text-blue-600 hover:underline">
+//               My Profile
+//             </a>
+//             <a href="/logout" className="text-red-600 hover:underline">
+//               Logout
+//             </a>
+//           </div>
+//         ) : (
+//           <div className="flex gap-4">
+//             <a href="/login" className="text-blue-600 hover:underline">
+//               Login
+//             </a>
+//             <a href="/register" className="text-green-600 hover:underline">
+//               Register
+//             </a>
+//           </div>
+//         )}
+//       </div>
+
+//       {userId ? (
+//         <PostForm />
+//       ) : (
+//         <p className="text-gray-500 mb-4">Login to post something.</p>
+//       )}
+
+//       {posts.map((post: PostWithAuthor) => (
+//         <PostCard key={post._id} post={post} showLink={!!userId} />
+//       ))}
+//     </main>
+//   );
+// }
+
+// app/page.tsx
+
+// import connectDB from "../../lib/mongoose";
+// import Post from "@/models/Post";
+// import "@/models/User";
+// import PostCard from "@/components/PostCard";
+// import PostForm from "@/components/PostForm";
+
+// import { cookies } from "next/headers";
+// import jwt from "jsonwebtoken";
+// import Footer from "@/components/Footer";
+
+// interface Author {
+//   _id: string;
+//   name: string;
+// }
+
+// interface PostWithAuthor {
+//   _id: string;
+//   content: string;
+//   author: Author;
+//   createdAt: Date;
+//   updatedAt: Date;
+// }
+
+// export default async function Home() {
+//   await connectDB();
+
+//   const posts: PostWithAuthor[] = await Post.find()
+//     .populate<{ author: Author }>("author", "name")
+//     .sort({ createdAt: -1 });
+
+//   const cookieStore = await cookies();
+//   const token = cookieStore.get("token")?.value;
+
+//   let userId: string | null = null;
+//   if (token) {
+//     try {
+//       const decoded = jwt.verify(token, process.env.JWT_SECRET!);
+//       userId = (decoded as { userId: string }).userId;
+//     } catch (err) {
+//       console.log("Invalid token");
+//     }
+//   }
+
+//   return (
+//     <>
+//       {/* Header */}
+//       <header className="bg-blue-600 text-white p-4 flex justify-between items-center shadow-md sticky top-0 z-50">
+//         <h1 className="text-xl font-bold">🔗 Mini LinkedIn</h1>
+//         <nav className="flex gap-4 text-sm">
+//           {userId ? (
+//             <>
+//               <a href={`/profile/${userId}`} className="hover:underline">
+//                 My Profile
+//               </a>
+//               <a href="/logout" className="hover:underline text-red-100">
+//                 Logout
+//               </a>
+//             </>
+//           ) : (
+//             <>
+//               <a href="/login" className="hover:underline">
+//                 Login
+//               </a>
+//               <a href="/register" className="hover:underline">
+//                 Register
+//               </a>
+//             </>
+//           )}
+//         </nav>
+//       </header>
+
+//       {/* Main Content */}
+//       <main className="max-w-2xl mx-auto p-4 mt-6">
+//         {userId ? (
+//           <PostForm />
+//         ) : (
+//           <p className="text-gray-600 mb-4">Login to post something.</p>
+//         )}
+
+//         {posts.map((post: PostWithAuthor) => (
+//           <PostCard key={post._id} post={post} showLink={!!userId} />
+//         ))}
+//       </main>
+//       <Footer />
+//     </>
+//   );
+// }
+
+// import connectDB from "../../lib/mongoose";
+// import Post from "@/models/Post";
+// import "@/models/User";
+// import PostCard from "@/components/PostCard";
+// import PostForm from "@/components/PostForm";
+// import Footer from "@/components/Footer";
+
+// import jwt from "jsonwebtoken";
+// import { headers } from "next/headers";
+//  import { cookies } from "next/headers";
+//  import { getUserFromCookie } from "../../lib/getUserFromCookie";
+
+// interface Author {
+//   _id: string;
+//   name: string;
+// }
+// type Post = {
+//   _id: string;
+//   content: string;
+//   createdAt: string;
+// };
+// interface PostWithAuthor {
+//   _id: string;
+//   content: string;
+//   author: Author;
+//   createdAt: Date;
+//   updatedAt: Date;
+// }
+
+// interface DecodedToken {
+//   userId: string;
+//   name: string;
+//   email: string;
+//   iat: number;
+// }
+
+// export default async function Home() {
+//   await connectDB();
+
+//   const posts: PostWithAuthor[] = await Post.find()
+//     .populate<{ author: Author }>("author", "name")
+//     .sort({ createdAt: -1 });
+
+// // ...
+// // const cookieStore = cookies();
+// // const token =  cookieStore.get("token")?.value || null;
+
+// const user =  await getUserFromCookie();
+// const userId = user?.userId ?? null;
+// const userName = user?.name ?? null;
+
+//   // let userId: string | null = null;
+//   // let userName: string | null = null;
+
+//   // if (user.token) {
+//   //   try {
+//   //     const decoded = jwt.verify(token, process.env.JWT_SECRET!) as DecodedToken;
+//   //     userId = decoded.userId;
+//   //     userName = decoded.name;
+//   //   } catch (err) {
+//   //     console.log("Invalid token");
+//   //   }
+//   // }
+
+//   return (
+//     <div className="flex flex-col min-h-screen bg-gray-50 text-black">
+//       {/* Header */}
+//       <header className="bg-blue-500 text-white p-4 flex justify-between items-center shadow-md sticky top-0 z-50">
+//         <h1 className="text-xl font-bold tracking-wide">🔗 Mini LinkedIn</h1>
+
+//         <nav className="flex items-center gap-6 text-sm font-medium">
+//           {userId ? (
+//             <>
+//               <span className="hidden sm:inline">👋 Welcome, <strong>{userName}</strong></span>
+//               <a
+//                 href={`/profile/${userId}`}
+//                 className="hover:underline hover:text-white transition-all duration-200"
+//               >
+//                 My Profile
+//               </a>
+//               <a
+//                 href="/logout"
+//                 className="hover:underline text-red-200 hover:text-white transition-all duration-200"
+//               >
+//                 Logout
+//               </a>
+//             </>
+//           ) : (
+//             <>
+//               <a href="/login" className="hover:underline">
+//                 Login
+//               </a>
+//               <a href="/register" className="hover:underline">
+//                 Register
+//               </a>
+//             </>
+//           )}
+//         </nav>
+//       </header>
+
+//       {/* Content Section */}
+//       <div className="flex flex-1 w-full max-w-6xl mx-auto px-4 pt-6 gap-6">
+//         {/* Sidebar */}
+//         {userId && (
+//           <aside className="w-64 bg-white text-black rounded p-4 shadow-md h-fit sticky top-20">
+//             <h2 className="text-lg font-semibold mb-4">Menu</h2>
+//             <ul className="space-y-2 text-sm">
+//               <li>
+//                 <a href={`/profile/${userId}`} className="hover:text-blue-600">
+//                   👤 View Profile
+//                 </a>
+//               </li>
+//               <li>
+//                 <a href={`/profile/${userId}`} className="hover:text-blue-600">
+//                   📝 My Posts
+//                 </a>
+//               </li>
+//               <li>
+//                 <a href="#create-post" className="hover:text-blue-600">
+//                   ➕ Create Post
+//                 </a>
+//               </li>
+//             </ul>
+//           </aside>
+//         )}
+
+//         {/* Main Feed */}
+//         <main className="flex-1">
+//           {userId ? (
+//             <div id="create-post" className="mb-4">
+//               <PostForm />
+//             </div>
+//           ) : (
+//             <p className="text-gray-600 mb-4">Login to post something.</p>
+//           )}
+
+//           {posts.map((post: PostWithAuthor) => (
+//             <PostCard key={post._id} post={post} showLink={!!userId} />
+//           ))}
+//         </main>
+//       </div>
+
+//       {/* Footer */}
+//       <Footer />
+//     </div>
+//   );
+// }
+
+import connectDB from "../../lib/mongoose";
+import Post from "@/models/Post";
+import "@/models/User";
+import PostCard from "@/components/PostCard";
+import PostForm from "@/components/PostForm";
+import Footer from "@/components/Footer";
+
+import { getUserFromCookie } from "../../lib/getUserFromCookie";
+
+interface Author {
+  _id: string;
+  name: string;
+}
+
+interface PostWithAuthor {
+  _id: string;
+  content: string;
+  author: Author;
+  createdAt: Date;
+  updatedAt: Date;
+}
+
+export default async function Home() {
+  await connectDB();
+
+  // const posts: PostWithAuthor[] = await Post.find()
+  //   .populate<{ author: Author }>("author", "name")
+  //   .sort({ createdAt: -1 });
+  const posts = (await Post.find()
+    .populate("author", "name")
+    .sort({ createdAt: -1 })) as PostWithAuthor[];
+
+  const user = await getUserFromCookie();
+
+  const userId = user?.userId ?? null;
+  const userName = user?.name ?? null;
+
   return (
-    <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="font-mono list-inside list-decimal text-sm/6 text-center sm:text-left">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] font-mono font-semibold px-1 py-0.5 rounded">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+    <div className="flex flex-col min-h-screen bg-gray-50 text-black">
+      {/* Header */}
+      <header className="bg-blue-600 text-white p-4 flex justify-between items-center shadow-md sticky top-0 z-50">
+        <h1 className="text-xl font-bold">🔗 Mini LinkedIn</h1>
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
-        </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
+        <nav className="flex gap-4 text-sm font-medium">
+          {userId ? (
+            <>
+              <span className="hidden sm:inline">👋 {userName}</span>
+              {/* <a href={`/profile/${userId}`} className="hover:underline">
+                My Profile
+              </a> */}
+              <a
+                href="/api/logout"
+                 
+                className="hover:underline text-red-200 hover:text-white transition-all duration-200"
+              >
+                Logout
+              </a>
+            </>
+          ) : (
+            <>
+              <a href="/login" className="hover:underline">
+                Login
+              </a>
+              <a href="/register" className="hover:underline">
+                Register
+              </a>
+            </>
+          )}
+        </nav>
+      </header>
+
+      <div className="flex flex-1 w-full max-w-6xl mx-auto px-4 py-6 gap-6">
+        {/* Sidebar */}
+        {userId && (
+          <aside className="w-64 bg-white text-black rounded p-4 shadow-md h-fit sticky top-20">
+            <h2 className="text-lg font-semibold mb-4">Menu</h2>
+            <ul className="space-y-2 text-sm">
+              <li>
+                <a href={`/profile/${userId}`} className="hover:text-blue-600">
+                  👤 View Profile
+                </a>
+              </li>
+              <li>
+                <a href={`/profile/${userId}`} className="hover:text-blue-600">
+                  📝 My Posts
+                </a>
+              </li>
+              {/* <li>
+                <a href="#create-post" className="hover:text-blue-600">
+                  ➕ Create Post
+                </a>
+              </li> */}
+            </ul>
+          </aside>
+        )}
+
+        {/* Main Content */}
+        <main className="flex-1">
+          {userId ? (
+            <div id="create-post" className="mb-4">
+              <PostForm />
+            </div>
+          ) : (
+            <p className="text-gray-500 mb-4">Login to post something.</p>
+          )}
+
+          {posts.map((post) => (
+            <PostCard key={post._id} post={post} showLink={!!userId} />
+          ))}
+        </main>
+      </div>
+
+      {/* Sticky Footer */}
+      <footer className="mt-auto">
+        <Footer />
       </footer>
     </div>
   );
