@@ -1,7 +1,7 @@
 import React from "react";
 import { headers } from "next/headers";
 
-type Params = { params: { id: string } };
+type Params = { params: Promise<{ id: string }> };
 type Post = {
   _id: string;
   content: string;

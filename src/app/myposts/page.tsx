@@ -18,7 +18,7 @@ export default async function MyPostsPage() {
     try {
       const decoded = jwt.verify(token, process.env.JWT_SECRET!);
       userId = (decoded as { userId: string }).userId;
-    } catch (err) {
+    } catch {
       console.log("Invalid token");
     }
   }

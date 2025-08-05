@@ -7,11 +7,11 @@ export type PostType = {
     name: string;
   };
 };
-interface JwtPayload {
-  userId: string;
-}
-type Post = {
-  _id: string;
-  content: string;
-  createdAt: string;
-};
+// interface JwtPayload {
+//   userId: string;
+// }
+// type Post = {
+//   _id: string;
+//   content: string;
+//   createdAt: string;
+// };
