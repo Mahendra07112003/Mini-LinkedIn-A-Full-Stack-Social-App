@@ -9,12 +9,13 @@ type Post = {
 };
 
 export default async function ProfilePage({ params }: Params) {
+  const resolvedParams = await params;
   const headersList = await headers();
   const host = headersList.get("host");
   const protocol = process.env.NODE_ENV === "development" ? "http" : "https";
   const baseUrl = `${protocol}://${host}`;
 
-  const res = await fetch(`${baseUrl}/api/profile/${params.id}`, {
+  const res = await fetch(`${baseUrl}/api/profile/${resolvedParams.id}`, {
     cache: "no-store",
   });
 
